@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update QR Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" style="width: 200px; height: auto;">
+            </div>
+            <div class="user-info">
+                <span>Hello, {{ current_user.id }}</span>
+                <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <h1>Update QR Code - {{ qr_code_name }}</h1>
+            <form action="{{ url_for('update_qr', category=category, qr_code_name=qr_code_name) }}" method="POST">
+                <label for="qr_code_name">QR Code Name:</label>
+                <input type="text" name="qr_code_name" value="{{ qr_code_name }}" readonly>
+
+                <label for="category">Category:</label>
+                <input type="text" name="category" value="{{ category }}" readonly>
+
+                <label for="cubicle_number">Cubicle Number:</label>
+                <input type="text" name="cubicle_number" required>
+
+                <label for="ad_login">AD Login:</label>
+                <input type="text" name="ad_login" required>
+
+                <label for="serial_number">Serial Number:</label>
+                <input type="text" name="serial_number" required>
+
+                <label for="hostname">Hostname:</label>
+                <input type="text" name="hostname" required>
+
+                <label for="mac_id">MAC ID:</label>
+                <input type="text" name="mac_id" required>
+
+                <label for="ram">RAM:</label>
+                <input type="text" name="ram" required>
+
+                <label for="processor">Processor:</label>
+                <input type="text" name="processor" required>
+
+                <label for="os">OS:</label>
+                <input type="text" name="os" required>
+
+                <label for="storage">Storage:</label>
+                <input type="text" name="storage" required>
+
+                <label for="brand">Brand:</label>
+                <input type="text" name="brand" required>
+
+                <button type="submit">Update QR Code</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #007bff;
+    color: white;
+}
+
+header .logo img {
+    width: 10px;
+}
+
+header .user-info {
+    font-size: 14px;
+}
+
+header .logout {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #007bff;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.qr-list ul {
+    list-style-type: none;
+}
+
+.qr-list li {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.qr-list img {
+    max-width: 150px;
+    margin-bottom: 10px;
+}
+
+.qr-list a {
+    display: inline-block;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.qr-list a:hover {
+    text-decoration: underline;
+}
