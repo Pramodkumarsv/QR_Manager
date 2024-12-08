@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="row">
-                {% for field in ['Cubicle Number', 'AD Login', 'Serial Number', 'Hostname', 'MAC ID', 'RAM', 'Processor', 'OS', 'Storage', 'Brand'] %}
+                {% for field in ['Cubicle Number', 'Serial Number', 'Hostname', 'MAC ID', 'RAM', 'Processor', 'OS', 'Storage', 'Brand'] %}
                 <div class="col-md-4 mb-3">
                     <label for="{{ field }}" class="form-label">{{ field }}</label>
                     <input type="text" id="{{ field }}" name="{{ field.lower().replace(' ', '_') }}" class="form-control" required>

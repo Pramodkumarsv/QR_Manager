@@ -20,7 +20,7 @@ login_manager.login_view = 'login'
 
 # User data for login purposes
 users = {
-    'pramod': {'password': 'admin123'}
+    'kraftit': {'password': 'Kraft@qr'}
 }
 
 class User(UserMixin):
@@ -88,7 +88,7 @@ def generate_qr():
     qr_code_name = request.form['qr_code_name']
     qr_data = {
         'Cubicle Number': request.form['cubicle_number'],
-        'AD Login': request.form['ad_login'],
+        #'AD Login': request.form['ad_login'],
         'Serial Number': request.form['serial_number'],
         'Hostname': request.form['hostname'],
         'MAC ID': request.form['mac_id'],
@@ -128,7 +128,7 @@ def update_qr(category, qr_code_name):
     if request.method == 'POST':
         qr_data = {
             'Cubicle Number': request.form['cubicle_number'],
-            'AD Login': request.form['ad_login'],
+            #'AD Login': request.form['ad_login'],
             'Serial Number': request.form['serial_number'],
             'Hostname': request.form['hostname'],
             'MAC ID': request.form['mac_id'],
