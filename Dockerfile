@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3-slim
 
@@ -24,7 +24,7 @@ USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
-=======
+
 # Use official Python 3.7 image as base
 FROM python:3.7
 
@@ -42,4 +42,4 @@ EXPOSE 5000
 
 # Command to run the application (if applicable)
 CMD ["python", "app.py"]
->>>>>>> f43ca5893a29b4de1684493af273bd86b375251c
+
