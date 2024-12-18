@@ -20,39 +20,53 @@
 
         <div class="main-content">
             <h1>Update QR Code - {{ qr_code_name }}</h1>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="flash {{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+
             <form action="{{ url_for('update_qr', category=category, qr_code_name=qr_code_name) }}" method="POST">
+                <!-- QR Code Name (readonly) -->
                 <label for="qr_code_name">QR Code Name:</label>
                 <input type="text" name="qr_code_name" value="{{ qr_code_name }}" readonly>
 
+                <!-- Category (readonly) -->
                 <label for="category">Category:</label>
                 <input type="text" name="category" value="{{ category }}" readonly>
 
+                <!-- Pre-filled input fields with current values -->
                 <label for="cubicle_number">Cubicle Number:</label>
-                <input type="text" name="cubicle_number" required>
+                <input type="text" name="cubicle_number" value="{{ current_qr_data['cubicle_number'] }}" required>
 
                 <label for="serial_number">Serial Number:</label>
-                <input type="text" name="serial_number" required>
+                <input type="text" name="serial_number" value="{{ current_qr_data['serial_number'] }}" required>
 
                 <label for="hostname">Hostname:</label>
-                <input type="text" name="hostname" required>
+                <input type="text" name="hostname" value="{{ current_qr_data['hostname'] }}" required>
 
                 <label for="mac_id">MAC ID:</label>
-                <input type="text" name="mac_id" required>
+                <input type="text" name="mac_id" value="{{ current_qr_data['mac_id'] }}" required>
 
                 <label for="ram">RAM:</label>
-                <input type="text" name="ram" required>
+                <input type="text" name="ram" value="{{ current_qr_data['ram'] }}" required>
 
                 <label for="processor">Processor:</label>
-                <input type="text" name="processor" required>
+                <input type="text" name="processor" value="{{ current_qr_data['processor'] }}" required>
 
                 <label for="os">OS:</label>
-                <input type="text" name="os" required>
+                <input type="text" name="os" value="{{ current_qr_data['os'] }}" required>
 
                 <label for="storage">Storage:</label>
-                <input type="text" name="storage" required>
+                <input type="text" name="storage" value="{{ current_qr_data['storage'] }}" required>
 
                 <label for="brand">Brand:</label>
-                <input type="text" name="brand" required>
+                <input type="text" name="brand" value="{{ current_qr_data['brand'] }}" required>
 
                 <button type="submit">Update QR Code</button>
             </form>

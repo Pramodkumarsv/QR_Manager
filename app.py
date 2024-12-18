@@ -1,5 +1,6 @@
 import os
 import qrcode
+from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -88,7 +89,6 @@ def generate_qr():
     qr_code_name = request.form['qr_code_name']
     qr_data = {
         'Cubicle Number': request.form['cubicle_number'],
-        #'AD Login': request.form['ad_login'],
         'Serial Number': request.form['serial_number'],
         'Hostname': request.form['hostname'],
         'MAC ID': request.form['mac_id'],
@@ -111,7 +111,24 @@ def generate_qr():
     qr.add_data(qr_data_str)
     qr.make(fit=True)
 
+    # Create image from QR code and add the QR code name text
     img = qr.make_image(fill='black', back_color='white')
+    draw = ImageDraw.Draw(img)
+    
+    # Load font
+    try:
+        font = ImageFont.truetype("arial.ttf", 20)  # Change to any font you prefer
+    except IOError:
+        font = ImageFont.load_default()
+
+    text = qr_code_name
+    text_bbox = draw.textbbox((0, 0), text, font=font)
+    text_width = text_bbox[2] - text_bbox[0]
+    text_height = text_bbox[3] - text_bbox[1]
+    text_position_x = (img.width - text_width) // 100 # Center horizontally
+    text_position_y = img.height - text_height - 10  # Position 10px from the bottom
+    draw.text((text_position_x, text_position_y), text, fill="black", font=font)
+    
     if not os.path.exists(category_dir):
         os.makedirs(category_dir)
     img.save(os.path.join(category_dir, f"{qr_code_name}.png"))
@@ -119,38 +136,6 @@ def generate_qr():
     flash(f"QR code '{qr_code_name}' successfully created in the '{category}' category.", 'success')
     return redirect(url_for('home'))
 
-@app.route('/update/<category>/<qr_code_name>', methods=['GET', 'POST'])
-@login_required
-def update_qr(category, qr_code_name):
-    category_dir = os.path.join(qr_code_root_dir, category)
-    qr_file_path = os.path.join(category_dir, f"{qr_code_name}.png")
-
-    if request.method == 'POST':
-        qr_data = {
-            'Cubicle Number': request.form['cubicle_number'],
-            #'AD Login': request.form['ad_login'],
-            'Serial Number': request.form['serial_number'],
-            'Hostname': request.form['hostname'],
-            'MAC ID': request.form['mac_id'],
-            'RAM': request.form['ram'],
-            'Processor': request.form['processor'],
-            'OS': request.form['os'],
-            'Storage': request.form['storage'],
-            'Brand': request.form['brand']
-        }
-
-        qr_data_str = "\n".join(f"{key}: {value}" for key, value in qr_data.items())
-        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-        qr.add_data(qr_data_str)
-        qr.make(fit=True)
-
-        img = qr.make_image(fill='black', back_color='white')
-        img.save(qr_file_path)
-
-        flash(f"QR code '{qr_code_name}' successfully updated!", 'success')
-        return redirect(url_for('home'))
-
-    return render_template('update_qr.html', category=category, qr_code_name=qr_code_name)
 
 @app.route('/delete/<category>/<qr_code_name>')
 @login_required
